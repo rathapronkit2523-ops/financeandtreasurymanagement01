@@ -1,12 +1,12 @@
 {
-  "projectId": "finance-and-accounting01",
-  "appId": "1:1076089937618:web:cb2347058624da7b57570b",
-  "apiKey": "AIzaSyCBQwX7rGdzFSIs5q94f8ELnZKhkb2FRbM",
-  "authDomain": "finance-and-accounting01.firebaseapp.com",
+  "projectId": "financeandtreasurymanagement01",
+  "appId": "1:1049040494899:web:1dbb23d67fcc8fef259e46",
+  "apiKey": "AIzaSyAFP5AdEoNy6ctIsJaVjUkYKWfMXA8MWIU",
+  "authDomain": "financeandtreasurymanagement01.firebaseapp.com",
   "firestoreDatabaseId": "ai-studio-2570-bda9a2c1-259d-4629-a51d-e1e8cbc4cadc",
-  "storageBucket": "finance-and-accounting01.firebasestorage.app",
-  "messagingSenderId": "1076089937618",
+  "storageBucket": "financeandtreasurymanagement01.firebasestorage.app",
+  "messagingSenderId": "1049040494899",
   "measurementId": "",
-  "oAuthClientId": "1076089937618-r4juu1o6gg3cjpa5593vk6gqml6rjh63.apps.googleusercontent.com",
+  "oAuthClientId": "1049040494899-lm9ugt645qncctkludqcv9ok584jgch2.apps.googleusercontent.com",
   "recaptchaSiteKey": ""
 }

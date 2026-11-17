@@ -181,7 +181,7 @@ export async function saveMunicipalityData(data: MunicipalityData): Promise<bool
     console.warn('LocalStorage save error:', err);
   }
 
-  // 2. Primary persistence: Firebase Firestore in project finance-and-accounting01
+  // 2. Primary persistence: Firebase Firestore in project financeandtreasurymanagement01
   let firestoreSuccess = false;
   try {
     firestoreSuccess = await saveMunicipalityDataToFirestore(data);

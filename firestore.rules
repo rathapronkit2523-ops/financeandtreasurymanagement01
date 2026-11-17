@@ -20,7 +20,9 @@ service cloud.firestore {
       allow read: if isValidId(docId);
       allow write: if isValidId(docId) &&
         incoming().municipalityName is string &&
-        incoming().fiscalYear is string;
+        incoming().municipalityName.size() <= 200 &&
+        incoming().fiscalYear is string &&
+        incoming().fiscalYear.size() <= 20;
     }
 
     // Daily entries collection
@@ -33,7 +35,8 @@ service cloud.firestore {
 
     // Test connection collection for health checks
     match /test/{testId} {
-      allow read, write: if isValidId(testId);
+      allow read: if isValidId(testId);
+      allow write: if false;
     }
   }
 }

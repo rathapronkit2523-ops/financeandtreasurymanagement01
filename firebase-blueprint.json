@@ -27,7 +27,7 @@
         },
         "revenueCategories": {
           "type": "array",
-          "description": "List of 9 revenue categories and figures"
+          "description": "List of revenue categories (including property income and subsidies) and figures"
         },
         "expenditureCategories": {
           "type": "array",

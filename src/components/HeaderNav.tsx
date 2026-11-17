@@ -2,6 +2,7 @@ import React from 'react';
 import { Building2, LogOut, RefreshCw, User, Shield, Calendar, Landmark, CheckCircle, Menu } from 'lucide-react';
 import { UserSession, MunicipalityData } from '../types/finance';
 import { formatCurrency, formatThaiDate } from '../utils/formatters';
+import firebaseConfig from '../../firebase-applet-config.json';
 
 interface HeaderNavProps {
   user: UserSession;
@@ -99,7 +100,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
             {/* Live Firebase Firestore Database Sync Indicator */}
             <div className="flex items-center gap-1.5 text-xs text-emerald-300 bg-emerald-950/70 border border-emerald-500/40 px-2.5 py-1 rounded-lg">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="hidden sm:inline font-medium">Firebase: finance-and-accounting01</span>
+              <span className="hidden sm:inline font-medium">Firebase: {firebaseConfig.projectId}</span>
               <span className="text-emerald-400 font-mono text-[10px]">{isSaving ? 'กำลังบันทึก...' : 'ออนไลน์'}</span>
             </div>
 
