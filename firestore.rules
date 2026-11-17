@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Main municipal finance document storing state across all menus
+    match /municipality_finance/{docId} {
+      allow read: if isValidId(docId);
+      allow write: if isValidId(docId) &&
+        incoming().municipalityName is string &&
+        incoming().fiscalYear is string;
+    }
+
+    // Daily entries collection
+    match /daily_entries/{entryId} {
+      allow read: if isValidId(entryId);
+      allow write: if isValidId(entryId) &&
+        incoming().amount is number &&
+        incoming().type in ['revenue', 'expenditure'];
+    }
+
+    // Test connection collection for health checks
+    match /test/{testId} {
+      allow read, write: if isValidId(testId);
+    }
+  }
+}

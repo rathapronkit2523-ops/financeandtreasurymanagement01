@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 1.5cm 1.5cm 1.5cm 1.5cm;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  header, nav, footer, button, .print\:hidden {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

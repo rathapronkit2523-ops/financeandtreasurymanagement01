@@ -1,0 +1,130 @@
+{
+  "entities": {
+    "MunicipalityFinance": {
+      "title": "MunicipalityFinance",
+      "description": "Comprehensive municipal finance record covering all menus: revenue, expenditure, accumulated proof, projects, tasks, memo, and ledger",
+      "type": "object",
+      "properties": {
+        "lastUpdated": {
+          "type": "string",
+          "description": "ISO timestamp of last update"
+        },
+        "lastUpdatedBy": {
+          "type": "string",
+          "description": "Name or identifier of updater"
+        },
+        "fiscalYear": {
+          "type": "string",
+          "description": "Fiscal year e.g. 2570"
+        },
+        "municipalityName": {
+          "type": "string",
+          "description": "Name of municipality"
+        },
+        "departmentName": {
+          "type": "string",
+          "description": "Name of finance department"
+        },
+        "revenueCategories": {
+          "type": "array",
+          "description": "List of 9 revenue categories and figures"
+        },
+        "expenditureCategories": {
+          "type": "array",
+          "description": "List of expenditure categories and items"
+        },
+        "accumulatedProof": {
+          "type": "object",
+          "description": "Proof of accumulated funds calculation"
+        },
+        "specialGrantProjects": {
+          "type": "array",
+          "description": "Specific purpose grant projects"
+        },
+        "accumulatedFundProjects": {
+          "type": "array",
+          "description": "Accumulated fund projects"
+        },
+        "goodGovernanceProjects": {
+          "type": "array",
+          "description": "Good governance grant projects"
+        },
+        "accruedExpenses": {
+          "type": "array",
+          "description": "Accrued expenses list"
+        },
+        "externalSubsidies": {
+          "type": "array",
+          "description": "Subsidies from other agencies"
+        },
+        "statusTasks": {
+          "type": "array",
+          "description": "Finance tasks and deadline tracking"
+        },
+        "dailyEntries": {
+          "type": "array",
+          "description": "Daily ledger entries"
+        },
+        "memorandum": {
+          "type": "object",
+          "description": "Official memorandum header and signatory data"
+        }
+      },
+      "required": ["fiscalYear", "municipalityName"]
+    },
+    "DailyTransaction": {
+      "title": "DailyTransaction",
+      "description": "Individual daily revenue or expenditure ledger entry",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique transaction id"
+        },
+        "date": {
+          "type": "string",
+          "description": "Transaction date (YYYY-MM-DD)"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["revenue", "expenditure"]
+        },
+        "category": {
+          "type": "string",
+          "description": "Budget category"
+        },
+        "subCategory": {
+          "type": "string",
+          "description": "Sub category"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Amount in Baht"
+        },
+        "docNumber": {
+          "type": "string",
+          "description": "Receipt or voucher number"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of transaction"
+        },
+        "recordedBy": {
+          "type": "string",
+          "description": "Officer who recorded"
+        }
+      },
+      "required": ["id", "date", "type", "amount"]
+    }
+  },
+  "firestore": {
+    "/municipality_finance/{docId}": {
+      "schema": "MunicipalityFinance",
+      "description": "Main document storing financial data across all menus for Maha Sarakham Municipality"
+    },
+    "/daily_entries/{entryId}": {
+      "schema": "DailyTransaction",
+      "description": "Collection of individual daily ledger entries"
+    }
+  }
+}
