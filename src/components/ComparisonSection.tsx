@@ -30,8 +30,40 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({
   const totalExpRem = totalExpEst - totalExpAct;
   const expPercent = calcPercent(totalExpAct, totalExpEst);
 
+  const estDiff = totalRevEst - totalExpEst;
   const netActualBalance = totalRevAct - totalExpAct;
-  const isSurplus = netActualBalance >= 0;
+  const remDiff = totalRevRem - totalExpRem;
+  const pctDiff = Number((revPercent - expPercent).toFixed(2));
+
+  const getDiffStatus = (diff: number) => {
+    if (diff > 0) {
+      return {
+        label: 'เกินดุล',
+        badgeClass: 'bg-emerald-100 text-emerald-800',
+        textClass: 'text-emerald-700',
+        prefix: '+'
+      };
+    }
+    if (diff === 0) {
+      return {
+        label: 'สมดุล',
+        badgeClass: 'bg-blue-100 text-blue-800',
+        textClass: 'text-slate-800',
+        prefix: ''
+      };
+    }
+    return {
+      label: 'ขาดดุล',
+      badgeClass: 'bg-rose-100 text-rose-800',
+      textClass: 'text-rose-700',
+      prefix: ''
+    };
+  };
+
+  const estStatus = getDiffStatus(estDiff);
+  const actStatus = getDiffStatus(netActualBalance);
+  const remStatus = getDiffStatus(remDiff);
+  const pctStatus = getDiffStatus(pctDiff);
 
   return (
     <div className="space-y-6">
@@ -220,12 +252,12 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({
                 <td className="py-3 px-4 text-right font-mono text-rose-700 font-medium">
                   {formatCurrency(totalExpEst)}
                 </td>
-                <td className="py-3 px-4 text-right font-mono font-bold text-slate-800">
-                  {formatCurrency(totalRevEst - totalExpEst)}
+                <td className={`py-3 px-4 text-right font-mono font-bold ${estStatus.textClass}`}>
+                  {estStatus.prefix}{formatCurrency(estDiff)}
                 </td>
                 <td className="py-3 px-4 text-center">
-                  <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                    งบประมาณสมดุล
+                  <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${estStatus.badgeClass}`}>
+                    {estStatus.label}
                   </span>
                 </td>
               </tr>
@@ -240,12 +272,12 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({
                 <td className="py-3 px-4 text-right font-mono text-rose-700 font-bold">
                   {formatCurrency(totalExpAct)}
                 </td>
-                <td className={`py-3 px-4 text-right font-mono font-bold text-base ${isSurplus ? 'text-emerald-700' : 'text-rose-700'}`}>
-                  {isSurplus ? '+' : ''}{formatCurrency(netActualBalance)}
+                <td className={`py-3 px-4 text-right font-mono font-bold text-base ${actStatus.textClass}`}>
+                  {actStatus.prefix}{formatCurrency(netActualBalance)}
                 </td>
                 <td className="py-3 px-4 text-center">
-                  <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${isSurplus ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
-                    {isSurplus ? 'เกินดุลเงินสด' : 'ขาดดุลเงินสด'}
+                  <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${actStatus.badgeClass}`}>
+                    {actStatus.label}
                   </span>
                 </td>
               </tr>
@@ -260,11 +292,13 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({
                 <td className="py-3 px-4 text-right font-mono text-emerald-700">
                   {formatCurrency(totalExpRem)} (งบเหลือเบิกจ่าย)
                 </td>
-                <td className="py-3 px-4 text-right font-mono text-slate-600">
-                  {formatCurrency(totalRevRem - totalExpRem)}
+                <td className={`py-3 px-4 text-right font-mono font-bold ${remStatus.textClass}`}>
+                  {remStatus.prefix}{formatCurrency(remDiff)}
                 </td>
                 <td className="py-3 px-4 text-center">
-                  <span className="text-xs text-slate-500">ปกติ</span>
+                  <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${remStatus.badgeClass}`}>
+                    {remStatus.label}
+                  </span>
                 </td>
               </tr>
 
@@ -278,12 +312,12 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({
                 <td className="py-3 px-4 text-right font-mono text-rose-700 text-base">
                   {expPercent}%
                 </td>
-                <td className="py-3 px-4 text-right font-mono text-indigo-700 text-base">
-                  {(revPercent - expPercent).toFixed(2)}%
+                <td className={`py-3 px-4 text-right font-mono text-base ${pctStatus.textClass}`}>
+                  {pctStatus.prefix}{pctDiff.toFixed(2)}%
                 </td>
                 <td className="py-3 px-4 text-center">
-                  <span className="px-2 py-0.5 rounded text-xs bg-emerald-200 text-emerald-900">
-                    สภาพคล่องดีเยี่ยม
+                  <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${pctStatus.badgeClass}`}>
+                    {pctStatus.label}
                   </span>
                 </td>
               </tr>
